@@ -15,6 +15,14 @@ type TFoo = object
 converter toPtr*(some: var TFoo): ptr TFoo = (addr some)
 
 
-proc zoot(x: ptr TFoo) = nil
+proc zoot(x: ptr TFoo) = discard
 var x: Tfoo
 zoot(x)
+
+# issue #6544
+converter withVar(b: var string): int = ord(b[1])
+
+block:
+  var x = "101"
+  var y: int = x # instantiate withVar
+  doAssert(y == ord('0'))

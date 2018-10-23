@@ -1,38 +1,46 @@
-## v0.X.X - XX/XX/2018
+## v0.20.0 - XX/XX/2018
 
 ### Changes affecting backwards compatibility
 
+- The ``isLower``, ``isUpper`` family of procs in strutils/unicode
+  operating on **strings** have been
+  deprecated since it was unclear what these do. Note that the much more
+  useful procs that operator on ``char`` or ``Rune`` are not affected.
+
+- `strutils.editDistance` has been deprecated,
+  use `editdistance.editDistance` or `editdistance.editDistanceAscii`
+  instead.
+
+
 #### Breaking changes in the standard library
 
-- ``re.split`` for empty regular expressions now yields every character in
-  the string which is what other programming languages chose to do.
 
 #### Breaking changes in the compiler
 
 ### Library additions
 
-- ``re.split`` now also supports the ``maxsplit`` parameter for consistency
-  with ``strutils.split``.
-- Added ``system.toOpenArray`` in order to support zero-copy slicing
-  operations. This is currently not yet available for the JavaScript target.
+- There is a new stdlib module `editdistance` as a replacement for the
+  deprecated `strutils.editDistance`.
+
+- Added `split`, `splitWhitespace`, `size`, `alignLeft`, `align`,
+  `strip`, `repeat` procs and iterators to `unicode.nim`.
+
+- Added `or` for `NimNode` in `macros`.
 
 ### Library changes
 
+
 ### Language additions
+
 
 ### Language changes
 
-- The `importcpp` pragma now allows importing the listed fields of generic
-  C++ types. Support for numeric parameters have also been added through
-  the use of `static[T]` types.
-  (#6415)
 
 ### Tool changes
-
-- ``jsondoc2`` has been renamed ``jsondoc``, similar to how ``doc2`` was renamed
-  ``doc``. The old ``jsondoc`` can still be invoked with ``jsondoc0``.
+- `jsondoc` now include a `moduleDescription` field with the module
+  description. `jsondoc0` shows comments as it's own objects as shown in the
+  documentation.
 
 ### Compiler changes
 
-- The VM's instruction count limit was raised to 1 billion instructions in order
-  to support more complex computations at compile-time.
+### Bugfixes
